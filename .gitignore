@@ -1,0 +1,36 @@
+# Environment
+.env
+.env.local
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+dist/
+*.egg-info/
+
+# Model weights (too large for git)
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.npy
+runs/
+
+# Data (downloaded separately)
+norgesgruppen/data/
+norgesgruppen/*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs (binary)
+*.docx
