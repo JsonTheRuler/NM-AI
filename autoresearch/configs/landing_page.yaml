@@ -1,42 +1,37 @@
-# Autoresearch config — Landing Page optimization
-# Tailored for EasyEiendom (Norwegian proptech)
+# Autoresearch config — Homepage optimization
+# EasyEiendom (easyeiendom.no) — AI platform for real estate brokers
 
-project_name: "easyeiendom-landing-page"
+project_name: "easyeiendom-homepage"
 
-# Point this to your landing page content file
-input_path: "./content.txt"
+input_path: "./content/homepage.txt"
 
 content_type: "landing_page"
 content_context: |
-  This is a landing page for easyeiendom.no, a Norwegian proptech startup.
-  Easy Eiendom aggregates legal and technical real estate data from multiple
-  public and private sources into one intuitive platform.
-  Target audience: property developers, investors, attorneys, municipalities,
-  and real estate brokers in Norway.
-  The platform provides automated analysis, real-time data, and AI-driven
-  decision support for property transactions.
+  Homepage for easyeiendom.no — an AI platform for Norwegian real estate
+  brokers (eiendomsmeglere). Three products: Broker AI (voice AI assistant
+  for viewings/inspections), BoligMatch AI (AI buyer-property matching,
+  white-label), and Byggesøknader (digital building permit applications).
+  Target audience: real estate brokers and brokerage firms in Norway.
+  Main competitors: traditional tools, manual processes, Finn.no for buyers.
+  All copy is in Norwegian. The page should convince brokers and brokerage
+  firm leaders to book a demo.
 
-# Quality checklist — 6 yes/no questions
+# Quality checklist — 6 yes/no questions calibrated to actual content
 checklist:
-  - "Does the headline clearly communicate what Easy Eiendom does in one sentence?"
-  - "Is there a clear, specific call-to-action (not generic like 'Learn More' or 'Get Started')?"
-  - "Does the copy mention a specific pain point that the target audience faces?"
-  - "Is the language free of buzzwords and jargon (no 'revolutionary', 'cutting-edge', 'synergy', 'leverage')?"
-  - "Does the page include social proof or credibility signals (testimonials, client logos, stats)?"
-  - "Does the first paragraph hook the reader with a concrete benefit or result?"
+  - "Does the headline immediately communicate the specific problem meglere face (wasting time on non-selling tasks)?"
+  - "Is every CTA specific and action-oriented (e.g. 'Book demo', 'Ring oss') rather than generic ('Lær mer', 'Kom i gang', 'Les mer')?"
+  - "Does the page clearly differentiate the three products (Broker AI, BoligMatch AI, Byggesøknader) with distinct value propositions?"
+  - "Does the pain-point section ('Hverdagen i dag') feel urgent and relatable — using concrete scenarios a megler would recognize?"
+  - "Does the page include at least two concrete metrics or statistics to build credibility (e.g. time saved, data sources, cost reduction)?"
+  - "Is the copy free of filler phrases, corporate speak, and unsubstantiated superlatives?"
 
-# Optimization settings
 max_iterations: 30
 target_score: 0.95
 consecutive_target: 3
 
-# Claude models (Sonnet for both — cost-effective)
 scorer_model: "claude-sonnet-4-20250514"
 mutator_model: "claude-sonnet-4-20250514"
 
-# Dashboard
 dashboard: true
 dashboard_port: 8501
-
-# Output directory
 output_dir: "./output"

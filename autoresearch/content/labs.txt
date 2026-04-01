@@ -1,0 +1,28 @@
+Easy Labs
+
+Forskning og utvikling
+
+Gratis verktøy. Ingen konto nødvendig.
+
+Datakilder: Kartverket, Matrikkelen, Kommunedata, Offentlige registre
+
+---
+
+Aktive verktøy
+
+Byggesak-sjekker (Gratis)
+Finn ut om tiltaket ditt krever byggesøknad eller kan gjøres uten søknad.
+
+Eiendomsrettigheter (Gratis)
+Finn ut hvilke rettigheter din eiendom har på andre matrikkelenheter.
+
+---
+
+Kommer snart — Flere verktøy er på vei
+
+Vi bygger nye gratis verktøy basert på offentlige data. Her er det som er under utvikling.
+
+Utnyttelsesgrad — Beregn tillatt bebygd areal (BYA) og se hvor mye du kan bygge på tomten din.
+Historiske flyfoto — Last opp to flyfoto og sammenlign endringer over tid med interaktiv slider.
+Solforhold — Finn ut hvor mye sol eiendommen får basert på fasaderetning og sesong.
+Boligpriser — Se prishistorikk og omsetninger for en spesifikk adresse over tid.

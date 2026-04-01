@@ -1,0 +1,34 @@
+# Autoresearch config — Meglerpakker og grunnbok page
+# EasyEiendom document ordering for real estate brokers
+
+project_name: "easyeiendom-meglerpakker"
+
+input_path: "./content/meglerpakker.txt"
+
+content_type: "landing_page"
+content_context: |
+  Product page for Meglerpakker — document ordering service that delivers
+  grunnbok, servitutter, heftelser and other property documents directly
+  from Kartverket in under 2 seconds. Integrates with Webmegler and
+  Vitec Next. Key selling points: 40% cheaper, 20 min saved per assignment,
+  documents with plain-language explanations. Includes a savings calculator.
+  Target: brokerage firms that order many document packages. Goal: book demo.
+
+checklist:
+  - "Does the before/after comparison make the current pain (multiple suppliers, no context, manual QA) feel real and costly?"
+  - "Are the key metrics (2 sek levering, 20 min spart, 40% lavere pris) prominent and easy to scan?"
+  - "Does the 'forklaringer som gir mening' section clearly show HOW Easy adds value beyond raw documents?"
+  - "Is the savings calculator section compelling — does it make the ROI feel tangible and personalized?"
+  - "Does the page address integration concerns (Webmegler, Vitec Next, REST API) concretely?"
+  - "Is there a clear CTA that follows naturally from the value proposition?"
+
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+dashboard: true
+dashboard_port: 8505
+output_dir: "./output"

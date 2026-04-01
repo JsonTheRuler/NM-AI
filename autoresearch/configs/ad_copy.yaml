@@ -7,10 +7,14 @@ input_path: "./ad_content.txt"
 
 content_type: "ad_copy"
 content_context: |
-  Ad copy for Easy Eiendom, a Norwegian proptech platform that aggregates
-  property data (legal, technical, economic) into one platform.
-  Target: property professionals in Norway (developers, investors, brokers).
-  Ads run on Google Search, Facebook, and LinkedIn.
+  Ad copy for Easy Eiendom (easyeiendom.no), an AI platform for Norwegian
+  real estate brokers. Three products: Broker AI (voice AI assistant for
+  viewings), BoligMatch AI (AI buyer-property matching, white-label), and
+  Byggesøknader (digital building permits). Target: real estate brokers
+  and brokerage firm leaders in Norway. Ads run on Google Search, Facebook,
+  and LinkedIn. Key pain points: losing inspections to better-prepared
+  competitors, wrong buyers at viewings, sales falling through due to
+  building permit issues. Tone: direct, confident, no corporate fluff.
 
 checklist:
   - "Does the headline include a specific benefit or result (not just a feature)?"
@@ -27,5 +31,5 @@ scorer_model: "claude-sonnet-4-20250514"
 mutator_model: "claude-sonnet-4-20250514"
 
 dashboard: true
-dashboard_port: 8501
+dashboard_port: 8506
 output_dir: "./output"

@@ -1,0 +1,35 @@
+# Autoresearch config — BoligMatch AI product page
+# EasyEiendom AI buyer-property matching, white-label
+
+project_name: "easyeiendom-boligmatch-ai"
+
+input_path: "./content/boligmatch_ai.txt"
+
+content_type: "landing_page"
+content_context: |
+  Product page for BoligMatch AI — an AI-driven buyer-property matching
+  tool that runs as white-label in the brokerage firm's own branding.
+  Buyers swipe properties (Tinder-like UX), AI builds buyer profiles,
+  and brokers get qualified leads. Key differentiator: independent from
+  Finn.no, white-label, AI-generated buyer profiles. Two audiences:
+  brokerage firm leaders (buy decision) and individual brokers (daily use).
+  Goal: book a demo. All copy in Norwegian.
+
+checklist:
+  - "Does the page clearly explain the white-label concept (their brand, their domain, buyer never sees Easy Eiendom)?"
+  - "Is the swipe/matching UX explained simply enough that someone unfamiliar with it understands in one read?"
+  - "Are the metrics (85% accuracy, 3 min to profile, 5x engagement) presented with enough context to be credible?"
+  - "Does the copy address the Finn.no dependency problem — why having your own lead channel matters?"
+  - "Does the page speak to BOTH audiences (firm leaders: ROI/differentiation AND brokers: daily workflow improvement)?"
+  - "Is there a clear, low-friction path to action (demo booking) without excessive form fields or commitments?"
+
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+dashboard: true
+dashboard_port: 8503
+output_dir: "./output"

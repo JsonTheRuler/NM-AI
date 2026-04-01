@@ -1,0 +1,34 @@
+# Autoresearch config — Broker AI product page
+# EasyEiendom voice AI assistant for real estate brokers
+
+project_name: "easyeiendom-broker-ai"
+
+input_path: "./content/broker_ai.txt"
+
+content_type: "landing_page"
+content_context: |
+  Product page for Broker AI — a voice-first AI assistant that helps
+  Norwegian real estate brokers (meglere) answer any question during
+  property viewings, inspections, and client meetings. Uses 50+ public
+  data sources in real-time. Key differentiator: voice-based, works
+  hands-free, data always fresh. Target audience: individual brokers
+  and brokerage firms. Goal: get them to book a demo.
+
+checklist:
+  - "Does the headline create an emotional hook tied to a real megler pain point (being caught without answers)?"
+  - "Does the page clearly explain HOW Broker AI works (voice input, real-time data) within the first two sections?"
+  - "Are the demo scenarios (visning, befaring, oppdragsmøte) concrete enough that a megler can picture themselves using it?"
+  - "Does the page cite specific data sources or capabilities (byggesaker, regulering, solforhold, prisdata) to build trust?"
+  - "Is the exclusivity claim ('Bare hos Easy', 'Konkurrentene dine har det ikke') substantiated rather than just stated?"
+  - "Does the copy maintain urgency without resorting to pressure tactics or false scarcity?"
+
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+dashboard: true
+dashboard_port: 8502
+output_dir: "./output"

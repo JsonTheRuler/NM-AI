@@ -1,0 +1,35 @@
+# Autoresearch config — Byggesøknader product page
+# EasyEiendom digital building permit applications for brokers
+
+project_name: "easyeiendom-byggesoknader"
+
+input_path: "./content/byggesoknader.txt"
+
+content_type: "landing_page"
+content_context: |
+  Product page for Byggesøknader — a digital platform that lets real estate
+  brokers handle building permit applications (byggesøknader) for sellers
+  before a property sale. Solves the problem of undocumented construction
+  work (ulovlige tiltak) that causes sales to fall through. Currently in
+  beta in Bergen, expanding to Oslo and rest of Norway in 2026. Pricing
+  from kr 20,000 incl. mva. Also serves private individuals. Target:
+  brokers who want to resolve compliance issues before listing.
+
+checklist:
+  - "Does the page create urgency around the compliance problem (opplysningsplikt, Forbrukertilsynet, 31,000 boliger med avvik)?"
+  - "Is the 3-step process (søk opp, velg tiltak, vi ordner resten) clear and simple enough to feel low-friction?"
+  - "Does the pricing (fra kr 20,000) feel transparent and justified by the value proposition (higher sale price, fewer claims)?"
+  - "Is the geographic limitation (Bergen now, more in 2026) presented honestly without undermining confidence?"
+  - "Does the page address both megler and privatperson audiences without confusing either?"
+  - "Are the compliance statistics (Norsk Takst, Forbrukertilsynet) cited specifically enough to be credible?"
+
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+dashboard: true
+dashboard_port: 8504
+output_dir: "./output"
