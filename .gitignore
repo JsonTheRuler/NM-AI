@@ -34,3 +34,6 @@ Thumbs.db
 
 # Docs (binary)
 *.docx
+
+# Autoresearch output
+autoresearch/output/

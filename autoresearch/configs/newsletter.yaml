@@ -1,0 +1,29 @@
+# Autoresearch config — Newsletter/Email optimization
+
+project_name: "easyeiendom-newsletter"
+
+input_path: "./newsletter_content.txt"
+
+content_type: "newsletter"
+content_context: |
+  Email newsletter for Easy Eiendom's audience of property professionals
+  in Norway. Goal: drive engagement, clicks, and platform signups.
+  Tone should be professional but approachable.
+
+checklist:
+  - "Does the subject line / opener create curiosity or urgency without being clickbait?"
+  - "Does the first paragraph include a personal or relatable detail?"
+  - "Is the email under 200 words (scannable, not a wall of text)?"
+  - "Is there exactly one clear CTA (not multiple competing actions)?"
+  - "Is it free of cliche phrases ('In today's fast-paced world', 'We're excited to announce')?"
+
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+dashboard: true
+dashboard_port: 8501
+output_dir: "./output"

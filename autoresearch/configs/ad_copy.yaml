@@ -1,0 +1,31 @@
+# Autoresearch config — Ad Copy optimization
+# For Google Ads, Facebook Ads, LinkedIn Ads etc.
+
+project_name: "easyeiendom-ads"
+
+input_path: "./ad_content.txt"
+
+content_type: "ad_copy"
+content_context: |
+  Ad copy for Easy Eiendom, a Norwegian proptech platform that aggregates
+  property data (legal, technical, economic) into one platform.
+  Target: property professionals in Norway (developers, investors, brokers).
+  Ads run on Google Search, Facebook, and LinkedIn.
+
+checklist:
+  - "Does the headline include a specific benefit or result (not just a feature)?"
+  - "Is the copy under 90 words (concise enough for ad formats)?"
+  - "Does it include a clear, action-oriented CTA with a specific verb?"
+  - "Does it address a specific pain point in the first sentence?"
+  - "Is it free of superlatives and unsubstantiated claims ('best', 'leading', '#1')?"
+
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+dashboard: true
+dashboard_port: 8501
+output_dir: "./output"

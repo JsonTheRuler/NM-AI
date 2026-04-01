@@ -1,0 +1,42 @@
+# Autoresearch config — Landing Page optimization
+# Tailored for EasyEiendom (Norwegian proptech)
+
+project_name: "easyeiendom-landing-page"
+
+# Point this to your landing page content file
+input_path: "./content.txt"
+
+content_type: "landing_page"
+content_context: |
+  This is a landing page for easyeiendom.no, a Norwegian proptech startup.
+  Easy Eiendom aggregates legal and technical real estate data from multiple
+  public and private sources into one intuitive platform.
+  Target audience: property developers, investors, attorneys, municipalities,
+  and real estate brokers in Norway.
+  The platform provides automated analysis, real-time data, and AI-driven
+  decision support for property transactions.
+
+# Quality checklist — 6 yes/no questions
+checklist:
+  - "Does the headline clearly communicate what Easy Eiendom does in one sentence?"
+  - "Is there a clear, specific call-to-action (not generic like 'Learn More' or 'Get Started')?"
+  - "Does the copy mention a specific pain point that the target audience faces?"
+  - "Is the language free of buzzwords and jargon (no 'revolutionary', 'cutting-edge', 'synergy', 'leverage')?"
+  - "Does the page include social proof or credibility signals (testimonials, client logos, stats)?"
+  - "Does the first paragraph hook the reader with a concrete benefit or result?"
+
+# Optimization settings
+max_iterations: 30
+target_score: 0.95
+consecutive_target: 3
+
+# Claude models (Sonnet for both — cost-effective)
+scorer_model: "claude-sonnet-4-20250514"
+mutator_model: "claude-sonnet-4-20250514"
+
+# Dashboard
+dashboard: true
+dashboard_port: 8501
+
+# Output directory
+output_dir: "./output"

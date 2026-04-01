@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoresearch Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0f1117;
+            color: #e4e4e7;
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #27272a;
+        }
+        .header h1 { font-size: 24px; font-weight: 600; }
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-running { background: #172554; color: #60a5fa; }
+        .status-completed { background: #14532d; color: #4ade80; }
+        .status-waiting { background: #451a03; color: #fbbf24; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+
+        .card {
+            background: #18181b;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .card h2 { font-size: 14px; color: #a1a1aa; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .big-number { font-size: 48px; font-weight: 700; }
+        .big-number.green { color: #4ade80; }
+        .big-number.blue { color: #60a5fa; }
+        .big-number.yellow { color: #fbbf24; }
+
+        .chart-container { position: relative; height: 280px; }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #27272a;
+        }
+        .checklist-item:last-child { border-bottom: none; }
+        .check-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .check-pass { background: #14532d; color: #4ade80; }
+        .check-fail { background: #450a0a; color: #f87171; }
+        .check-question { font-size: 14px; font-weight: 500; }
+        .check-reasoning { font-size: 12px; color: #71717a; margin-top: 2px; }
+
+        .change-log {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .change-entry {
+            padding: 12px 0;
+            border-bottom: 1px solid #27272a;
+        }
+        .change-entry:last-child { border-bottom: none; }
+        .change-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: #71717a;
+            margin-bottom: 4px;
+        }
+        .badge-kept { color: #4ade80; }
+        .badge-reverted { color: #f87171; }
+        .change-desc { font-size: 14px; }
+
+        .content-preview {
+            background: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+            line-height: 1.7;
+        }
+
+        .latest-change {
+            background: #172554;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 14px;
+            color: #93c5fd;
+        }
+
+        .full-width { grid-column: 1 / -1; }
+        .refresh-note { font-size: 11px; color: #52525b; text-align: right; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="project-name">Autoresearch Dashboard</h1>
+        <span class="status-badge status-waiting" id="status-badge">Waiting</span>
+    </div>
+
+    <div class="grid-3">
+        <div class="card">
+            <h2>Current Score</h2>
+            <div class="big-number green" id="current-score">--</div>
+        </div>
+        <div class="card">
+            <h2>Iteration</h2>
+            <div class="big-number blue" id="iteration">--</div>
+        </div>
+        <div class="card">
+            <h2>Target</h2>
+            <div class="big-number yellow" id="target">--</div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Score Over Time</h2>
+            <div class="chart-container">
+                <canvas id="score-chart"></canvas>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Quality Checklist</h2>
+            <div id="checklist-container"></div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 20px;">
+        <h2>Latest Change</h2>
+        <div class="latest-change" id="latest-change">Waiting for first iteration...</div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Changelog</h2>
+            <div class="change-log" id="changelog"></div>
+        </div>
+        <div class="card">
+            <h2>Current Best Content</h2>
+            <div class="content-preview" id="content-preview">Waiting for content...</div>
+        </div>
+    </div>
+
+    <div class="refresh-note">Auto-refreshes every 3 seconds</div>
+
+    <script>
+        let chart = null;
+
+        function initChart() {
+            const ctx = document.getElementById('score-chart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Score',
+                        data: [],
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#4ade80',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: 0, max: 1,
+                            ticks: {
+                                callback: v => (v * 100) + '%',
+                                color: '#71717a',
+                            },
+                            grid: { color: '#27272a' },
+                        },
+                        x: {
+                            ticks: { color: '#71717a' },
+                            grid: { color: '#27272a' },
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: ctx => (ctx.parsed.y * 100).toFixed(0) + '%'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateDashboard(data) {
+            if (data.status === 'waiting') return;
+
+            // Header
+            document.getElementById('project-name').textContent = data.project_name || 'Autoresearch';
+            const badge = document.getElementById('status-badge');
+            badge.textContent = data.status;
+            badge.className = 'status-badge status-' + data.status;
+
+            // Stats
+            document.getElementById('current-score').textContent =
+                (data.current_score * 100).toFixed(0) + '%';
+            document.getElementById('iteration').textContent =
+                data.current_iteration + '/' + data.max_iterations;
+            document.getElementById('target').textContent =
+                (data.target_score * 100).toFixed(0) + '%';
+
+            // Chart
+            if (chart && data.scores) {
+                chart.data.labels = data.scores.map((_, i) => i === 0 ? 'Base' : 'R' + i);
+                chart.data.datasets[0].data = data.scores;
+
+                // Add target line
+                if (chart.data.datasets.length === 1) {
+                    chart.data.datasets.push({
+                        label: 'Target',
+                        data: data.scores.map(() => data.target_score),
+                        borderColor: '#fbbf24',
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false,
+                    });
+                } else {
+                    chart.data.datasets[1].data = data.scores.map(() => data.target_score);
+                }
+                chart.update('none');
+            }
+
+            // Checklist
+            const checklistEl = document.getElementById('checklist-container');
+            if (data.checklist) {
+                checklistEl.innerHTML = data.checklist.map(item => `
+                    <div class="checklist-item">
+                        <div class="check-icon ${item.passed ? 'check-pass' : 'check-fail'}">
+                            ${item.passed ? '✓' : '✗'}
+                        </div>
+                        <div>
+                            <div class="check-question">${item.question}</div>
+                            <div class="check-reasoning">${item.reasoning || ''}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Latest change
+            document.getElementById('latest-change').textContent = data.latest_change || '';
+
+            // Changelog
+            const changelogEl = document.getElementById('changelog');
+            if (data.changelog && data.changelog.length > 0) {
+                changelogEl.innerHTML = data.changelog.slice().reverse().map(entry => `
+                    <div class="change-entry">
+                        <div class="change-meta">
+                            <span>Round ${entry.iteration}</span>
+                            <span>${(entry.candidate_score * 100).toFixed(0)}%</span>
+                            <span class="${entry.kept ? 'badge-kept' : 'badge-reverted'}">
+                                ${entry.kept ? '✓ Kept' : '✗ Reverted'}
+                            </span>
+                        </div>
+                        <div class="change-desc">${entry.change}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Content preview
+            document.getElementById('content-preview').textContent =
+                data.full_content || data.content_preview || '';
+        }
+
+        async function fetchResults() {
+            try {
+                const resp = await fetch('/api/results');
+                const data = await resp.json();
+                updateDashboard(data);
+            } catch (e) {
+                // Silently retry on next interval
+            }
+        }
+
+        initChart();
+        fetchResults();
+        setInterval(fetchResults, 3000);
+    </script>
+</body>
+</html>
