@@ -104,8 +104,9 @@ for evaluating {content_type} content. Each question should:
 @click.option("--checklist-count", default=5, help="Number of checklist items to generate (with --auto-checklist)")
 @click.option("--no-dashboard", is_flag=True, help="Disable the web dashboard")
 @click.option("--max-iterations", default=None, type=int, help="Override max iterations")
+@click.option("--no-early-stop", is_flag=True, help="Disable early stopping — keep polishing even at 100%%")
 @click.option("--port", default=8501, type=int, help="Dashboard port")
-def main(config_path, input_path, content_type, auto_checklist, checklist_count, no_dashboard, max_iterations, port):
+def main(config_path, input_path, content_type, auto_checklist, checklist_count, no_dashboard, max_iterations, no_early_stop, port):
     """Autoresearch — Automatically optimize content with iterative Claude scoring."""
 
     # Setup logging
@@ -139,6 +140,8 @@ def main(config_path, input_path, content_type, auto_checklist, checklist_count,
     # Override max iterations if specified
     if max_iterations is not None:
         config["max_iterations"] = max_iterations
+    if no_early_stop:
+        config["no_early_stop"] = True
 
     # Resolve content path relative to autoresearch root (not config file location)
     autoresearch_root = Path(__file__).parent

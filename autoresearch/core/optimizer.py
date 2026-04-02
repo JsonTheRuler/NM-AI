@@ -118,22 +118,25 @@ def run_optimization(config: dict):
 
         # Identify failures
         failures = [r for r in best_results if not r["passed"]]
+        all_passing = len(failures) == 0
 
-        if not failures:
+        if all_passing:
             logger.info("All checklist items passing!")
             consecutive_at_target += 1
-            if consecutive_at_target >= consecutive_target:
+            no_early_stop = config.get("no_early_stop", False)
+            if not no_early_stop and consecutive_at_target >= consecutive_target:
                 logger.info(f"Target reached {consecutive_target} times in a row. Stopping.")
                 break
-            # Still run mutation to see if we can maintain the score
-            # with a slightly different approach (robustness)
-            failures = [{"question": "General improvement", "reasoning": "All items passing — try to make the content even stronger"}]
+            failures = [{"question": "General improvement", "reasoning": "All items passing — make the content even stronger while maintaining score"}]
 
         # Mutate
-        logger.info(f"Failing items: {len(failures)}")
+        logger.info(f"{'Polishing' if all_passing else 'Failing items: ' + str(len(failures))}")
         try:
+            all_change_descs = [e["change"] for e in changelog_entries]
             candidate, change_desc = mutate_content(
-                best_content, failures, content_context, mutator_model, client
+                best_content, failures, content_context, mutator_model, client,
+                previous_changes=all_change_descs,
+                all_passing=all_passing,
             )
         except Exception as e:
             logger.error(f"Mutation failed: {e}")
@@ -221,7 +224,8 @@ def run_optimization(config: dict):
         _save_results_json(output_dir, results_data)
 
         # Stop condition
-        if consecutive_at_target >= consecutive_target:
+        no_early_stop = config.get("no_early_stop", False)
+        if not no_early_stop and consecutive_at_target >= consecutive_target:
             logger.info(f"Target {target_score:.0%} reached {consecutive_target} times in a row!")
             break
 
