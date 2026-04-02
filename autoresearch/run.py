@@ -140,13 +140,12 @@ def main(config_path, input_path, content_type, auto_checklist, checklist_count,
     if max_iterations is not None:
         config["max_iterations"] = max_iterations
 
-    # Load content for checklist generation
+    # Resolve content path relative to autoresearch root (not config file location)
+    autoresearch_root = Path(__file__).parent
     if "input_content" not in config or not config.get("input_content"):
         content_path = config.get("input_path")
         if content_path and not Path(content_path).is_absolute():
-            # Resolve relative to config file location if applicable
-            if config_path:
-                content_path = str(Path(config_path).parent / content_path)
+            content_path = str(autoresearch_root / content_path)
             config["input_path"] = content_path
 
     # Handle checklist
@@ -170,12 +169,9 @@ def main(config_path, input_path, content_type, auto_checklist, checklist_count,
         logger.info(f"Using default {ct} checklist ({len(config['checklist'])} items)")
 
     # Resolve output dir
-    output_dir = config.get("output_dir", str(Path(__file__).parent / "output"))
+    output_dir = config.get("output_dir", str(autoresearch_root / "output"))
     if not Path(output_dir).is_absolute():
-        if config_path:
-            output_dir = str(Path(config_path).parent / output_dir)
-        else:
-            output_dir = str(Path(__file__).parent / "output")
+        output_dir = str(autoresearch_root / output_dir)
     config["output_dir"] = output_dir
 
     # Start dashboard
