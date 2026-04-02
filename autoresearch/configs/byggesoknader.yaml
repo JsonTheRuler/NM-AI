@@ -20,7 +20,7 @@ checklist:
   - "Is the 3-step process (søk opp, velg tiltak, vi ordner resten) clear and simple enough to feel low-friction?"
   - "Does the pricing (fra kr 20,000) feel transparent and justified by the value proposition (higher sale price, fewer claims)?"
   - "Is the geographic limitation (Bergen now, more in 2026) presented honestly without undermining confidence?"
-  - "Does the page address both megler and privatperson audiences without confusing either?"
+  - "Is the page primarily focused on meglere while clearly separating any secondary audience (privatperson) into its own distinct section?"
   - "Are the compliance statistics (Norsk Takst, Forbrukertilsynet) cited specifically enough to be credible?"
 
 max_iterations: 30

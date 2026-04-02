@@ -19,7 +19,7 @@ checklist:
   - "Does the page clearly explain HOW Broker AI works (voice input, real-time data) within the first two sections?"
   - "Are the demo scenarios (visning, befaring, oppdragsmøte) concrete enough that a megler can picture themselves using it?"
   - "Does the page cite specific data sources or capabilities (byggesaker, regulering, solforhold, prisdata) to build trust?"
-  - "Is the exclusivity claim ('Bare hos Easy', 'Konkurrentene dine har det ikke') substantiated rather than just stated?"
+  - "Are any competitive differentiation claims backed by specifics (e.g. what exactly Broker AI does that others can't, which data sources it combines, or how the voice interface works differently)?"
   - "Does the copy maintain urgency without resorting to pressure tactics or false scarcity?"
 
 max_iterations: 30
